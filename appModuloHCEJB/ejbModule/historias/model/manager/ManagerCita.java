@@ -24,29 +24,14 @@ public class ManagerCita {
         // TODO Auto-generated constructor stub
     }
 	
-	//Empleado
-	public List<Empleado> findAllEmpleado(){
-    	List<Empleado> lista=em.createQuery("select o from Empleado o").getResultList();
-    	return lista;
-    }
-	
-	public Empleado insertarCita(Empleado empleado)
-	{
-		Empleado e  = new Empleado();
-		e.setCedEmple(empleado.getCedEmple());
-		e.setTipo(empleado.getTipo());
-		e.setNombreEmple(empleado.getNombreEmple());
-		e.setFechanaciEmple(empleado.getFechanaciEmple());
-		e.setTelefonoEmple(empleado.getTelefonoEmple());
-		e.setEmailEmple(empleado.getEmailEmple());
-		e.setPassEmple(empleado.getPassEmple());
-		em.persist(e);
-		return e;
-	}
-	
 	//Cita
 	public List<Cita> findAllCita(){
 		List<Cita> lista= em.createQuery("select o from Cita o").getResultList();
+		return lista;
+	}
+	
+	public List<Empleado> findAllEmpleado(){
+		List<Empleado> lista = em.createQuery("select o from Empleado o").getResultList();
 		return lista;
 	}
 	
@@ -64,36 +49,11 @@ public class ManagerCita {
 		em.remove(c);
 	}
 	
-	public Cita actualizarCita(Cita cita, String ced_emple) {
+	public Cita actualizarCita(Cita cita, int id_Cita) {
 		Cita c = (Cita)em.find(Cita.class, cita.getIdCita());
+		c.setEmpleado(cita.getEmpleado());
 		c.setFechaCita(cita.getFechaCita());
-		Empleado e =(Empleado)em.find(Empleado.class, ced_emple);
-		c.setEmpleado(e);
 		em.merge(c);
 		return c;
 	}
-	
-	//agregar
-	public Empleado agregarCita(Empleado empleado, Cita cita) {
-		if(empleado==null)
-		{
-			empleado = new Empleado();
-			empleado.setCitas(new ArrayList<Cita>());
-		}
-		empleado.addCita(cita);
-		return empleado;
-	}
-    
-    //guardar tabla
-	public Empleado guardarEmpleado(Empleado empleado) throws Exception{
-		if(empleado == null) {
-			throw new Exception("Debe primero crear valores");
-		}
-		if(empleado.getCitas().size()==0) {
-			throw new Exception("Debe tener valores");
-		}
-		em.persist(empleado);
-		return empleado;
-	}
-
 }

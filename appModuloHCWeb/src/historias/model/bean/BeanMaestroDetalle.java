@@ -20,19 +20,19 @@ public class BeanMaestroDetalle {
 
 	@EJB
 	private ManagerCita mc;
-	private List<Empleado> listaEmpleado;
-	private String ced_emple;
+	private int id_cita;
 	private Cita cita;
 	private List<Cita> listaCita;
+	private String ced_emple;
+	private List<Empleado> listaEmpleado;
 	private Empleado empleado;
 	
 	@PostConstruct
 	public void inicializar(){
-		listaEmpleado = mc.findAllEmpleado();
-		empleado = new Empleado();
+		listaEmpleado=mc.findAllEmpleado();
 		listaCita = mc.findAllCita();
 		cita= new Cita();
-		empleado.setCitas(new ArrayList<Cita>());
+		empleado = new Empleado();
 	}
 	
 	public void actionListenereInsertarCita() {
@@ -48,40 +48,62 @@ public class BeanMaestroDetalle {
 	
 	public void actionListenerSeleccionarCita(Cita cSeleccionado) {
 		cita=cSeleccionado;
-		ced_emple=cSeleccionado.getEmpleado().getCedEmple();
+		id_cita=cSeleccionado.getIdCita();
 	}
 	
 	public void actionListenerActualizar() {
-		mc.actualizarCita(cita, ced_emple);
+		mc.actualizarCita(cita, id_cita);
 		listaCita=mc.findAllCita();
-		cita= new Cita();
-	}
-	
-	public void actionListenerRecargarCita() {
-		listaEmpleado=mc.findAllEmpleado();
-	}
-	
-	public void actionListenerAgregarCita() {
-		empleado=mc.agregarCita(empleado,cita);
-		cita=new Cita();
-	}
-	
-	public void actionListenerGuardartransaccion() {
-		try {
-			empleado=mc.guardarEmpleado(empleado);
-			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "transaccion completa",null));
-		}catch(Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),null));
-			e.printStackTrace();
-		}
-	}
-	
-	public void actionListenerNuevoEmpleado()
-	{
-		empleado = new Empleado();
-		empleado.setCitas(new ArrayList<Cita>());
 		cita = new Cita();
 	}
+
+	public int getId_cita() {
+		return id_cita;
+	}
+
+	public void setId_cita(int id_cita) {
+		this.id_cita = id_cita;
+	}
+
+	public Cita getCita() {
+		return cita;
+	}
+
+	public void setCita(Cita cita) {
+		this.cita = cita;
+	}
+
+	public List<Cita> getListaCita() {
+		return listaCita;
+	}
+
+	public void setListaCita(List<Cita> listaCita) {
+		this.listaCita = listaCita;
+	}
+
+	public String getCed_emple() {
+		return ced_emple;
+	}
+
+	public void setCed_emple(String ced_emple) {
+		this.ced_emple = ced_emple;
+	}
+
+	public List<Empleado> getListaEmpleado() {
+		return listaEmpleado;
+	}
+
+	public void setListaEmpleado(List<Empleado> listaEmpleado) {
+		this.listaEmpleado = listaEmpleado;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+	
+	
 }
