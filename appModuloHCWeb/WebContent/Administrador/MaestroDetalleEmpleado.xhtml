@@ -2,8 +2,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="">
-	</ui:composition>
+	<h:head></h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem value="Inicio" title="Inicio" icon="ui-icon-home"
+					action="index"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="ui-icon-person" />
+					<p:commandButton title="Cerrar sesión" icon="ui-icon-power" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:messages>
+		<p:autoUpdate></p:autoUpdate>
+	</p:messages>
+	<h:form id="form1">
+		<p:panel header="TIPO DE EMPLEADO" collapsed="true" toggleable="true">
+			<p:panelGrid columns="2" layout="grid">
+				<h:outputLabel value="ID" />
+				<h:outputText value="#{beanEmpleadoMD.t.idTipo}" />
+				<h:outputLabel value="Tipo de Empleado:" />
+				<p:inputText value="#{beanEmpleadoMD.t.decripcionTipo}"
+					maxlength="50" required="true"
+					requiredMessage="Debe ingresar decripción." />
+			</p:panelGrid>
+		</p:panel>
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Cédula" />
+			<p:inputText value="#{beanEmpleadoMD.e.cedEmple}"></p:inputText>
+			<h:outputLabel value="Nombres" />
+			<p:inputText value="#{beanEmpleadoMD.e.nombreEmple}"></p:inputText>
+			<h:outputLabel value="Fecha de Nacimiento" />
+			<p:calendar value="#{beanEmpleadoMD.e.fechanaciEmple}"></p:calendar>
+			<h:outputLabel value="Telefono" />
+			<p:inputText value="#{beanEmpleadoMD.e.telefonoEmple}"></p:inputText>
+			<h:outputLabel value="Email" />
+			<p:inputText value="#{beanEmpleadoMD.e.emailEmple}"></p:inputText>
+			<h:outputLabel value="Contraseña" />
+			<p:inputText value="#{beanEmpleadoMD.e.passEmple}"></p:inputText>
+			<p:commandButton value="Agregar detalle" icon="ui-icon-plus"
+				update="@form"
+				actionListener="#{beanEmpleadoMD.actionListenerAgregarDetalle()}"></p:commandButton>
+		</p:panelGrid>
+		<p:dataTable value="#{beanEmpleadoMD.t.empleados}"
+			var="ic" emptyMessage="Aun no ha agregado detalles.">
+			<p:column headerText="Cédula">
+				<h:outputText value="#{ic.cedEmple}" />
+			</p:column>
+			<p:column headerText="NOMBRE">
+				<h:outputText value="#{ic.nombreEmple}" />
+			</p:column>
+			<p:column headerText="TIPO DE EMPLEADO">
+				<h:outputText value="#{ic.tipo.decripcionTipo}" />
+			</p:column>
+			<p:column headerText="TELEFONO">
+				<h:outputText value="#{ic.telefonoEmple}" />
+			</p:column>
+			<p:column headerText="EMAIL">
+				<h:outputText value="#{ic.emailEmple}" />
+			</p:column>
+			<p:column headerText="CONTRASEÑA">
+				<h:outputText value="#{ic.passEmple}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<h:form id="form3">
+		<p:commandButton value="Guardar transaccion" icon="ui-icon-disk"
+			update="@form,:form1"
+			actionListener="#{beanEmpleadoMD.actionListenerGuardarTransaccion()}"></p:commandButton>
+		<p:commandButton value="Nuevo tipo catalogo" update="@form,:form1"
+			actionListener="#{beanEmpleadoMD.actionsListenerNuevoTipo()}"></p:commandButton>
+	</h:form>
+</body>
 </html>

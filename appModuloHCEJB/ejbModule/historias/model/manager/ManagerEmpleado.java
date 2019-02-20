@@ -29,7 +29,7 @@ public class ManagerEmpleado {
     
     //Tipo empleado
     public List<Tipo> findAllTipo(){
-    	List<Tipo> lista = m.createQuery("select o from Tipo o").getResultList();
+    	List<Tipo> lista = m.createQuery("SELECT t FROM Tipo t").getResultList();
     	return lista;
     }
     
