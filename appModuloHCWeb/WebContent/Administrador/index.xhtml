@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Administrador</title>
+	</f:facet>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem value="Inicio" title="Inicio" icon="ui-icon-home" action="index"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Datos de usuario" icon="ui-icon-person" />
+					<p:commandButton title="Cerrar sesión" icon="ui-icon-power" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<div id="main">
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<h:form>
+			<p:panelGrid columns="2" layout="grid">
+				<p:panelGrid columns="1" style="text-align:center">
+					<p:commandLink action="empleado">
+						<p:graphicImage library="images" name="doc.jpg"
+							width="50%" />
+					</p:commandLink>
+					<h:outputText value="Doctores" />
+				</p:panelGrid>
+				<p:panelGrid columns="1" style="text-align:center">
+					<p:commandLink action="empleado">
+						<p:graphicImage library="images" name="enf.jpg" width="62%" />
+					</p:commandLink>
+					<h:outputText value="Pacientes" />
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>

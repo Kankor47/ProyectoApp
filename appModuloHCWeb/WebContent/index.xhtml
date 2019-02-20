@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+		<title>Citas Médicas</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:outputStylesheet name="css/messages.css" />
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<div id="menu"></div>
+	<div id="main" align="center">
+		<p:graphicImage library="images" name="doctorcare.PNG"
+			style="max-width:70%" />
+		
+		<p:panel header="Login" style="width:70%">
+			<p:messages>
+				<p:autoUpdate />
+			</p:messages>
+			<h:form>
+				<p:panelGrid columns="2" layout="grid">
+					<p:commandButton icon="ui-icon-key" value="Ingresar"
+						action="admin/index" update="@form"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+		</p:panel>
+	</div>
+</body>
+</html>

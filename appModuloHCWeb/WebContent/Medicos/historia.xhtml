@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head><title>Historia</title></h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
+	<div id="menu">
+		<h:form>
+			<p:menubar>
+				<p:menuitem value="Inicio" title="Inicio" icon="ui-icon-home"
+					action="index"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton title="Cerrar sesión" icon="ui-icon-power" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+	<p:messages>
+		<p:autoUpdate></p:autoUpdate>
+	</p:messages>
+	<h:form id="form1">
+		<p:panel header="HISTORIA CLÍNICA" collapsed="true" toggleable="true">
+			<p:panelGrid columns="2" layout="grid">
+			<h:outputlabel value="Código Historia:"/>
+			<p:inputText value="#{beanHistoria.historia.idHis}"
+					maxlength="50" required="true"
+					requiredMessage="Debe ingresar el código de la historia clínica"/>
+			<h:outputLabel value="Cédula:" />
+				<p:inputText value="#{beanEmpleado.empleado.cedEmple}"
+					maxlength="50" required="true"
+					requiredMessage="Debe ingresar el número de cédula"/>
+				<h:outputLabel value="Ocupación:" />
+				<p:inputText value="#{beanHistoria.historia.ocupacionHis}"
+					maxlength="50">
+					</p:inputText>
+					<h:outputLabel value="Anteceentes Alimenticios:" />
+				<p:inputText value="#{beanHistoria.historia.anteAlimenticios}"
+					maxlength="1000">
+					</p:inputText>
+				<h:outputLabel value="Antecedentes Familiares:" />
+				<p:inputText value="#{beanHistoria.historia.anteFamiliares}"
+					maxlength="1000">
+					</p:inputText>
+				<h:outputLabel value="Antecedentes Hospitalarios:" />
+				<p:inputText value="#{beanHistoria.historia.anteHospitalizaciones}"
+					maxlength="1000">
+					</p:inputText>
+				<h:outputLabel value="Antecedentes Patológicos:" />
+				<p:inputText value="#{beanHistoria.historia.antePatologicos}"
+					maxlength="1000">
+					</p:inputText>
+					<h:outputLabel value="Antecedentes Quirúrgicos:" />
+				<p:inputText value="#{beanHistoria.historia.anteQuirurgicos}"
+					maxlength="1000">
+					</p:inputText>
+					
+					
+				<p:commandButton value="Insertar" icon="ui-icon-disk"
+					actionListener="#{beanHistoria.actionListenerInsertarHistoria()}"
+					update="@form,:form2" />
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<h:form id="form2">
+		<p:dataTable value="#{beanHistoria.listaHistoria}" var="hi"
+			emptyMessage="No se encontraron registros" paginator="true" rows="5">
+			<p:column headerText="CÓDIGO HISTORIA" priority="1" style="width:100px">
+			<h:outputText value="#{hi.idHis}" />
+			</p:column>
+			<p:column headerText="CEDULA EMPLEADO" priority="1" style="width:100px">
+				<h:outputText value="#{hi.empleado}" />
+			</p:column>
+			<p:column headerText="OCUPACIÓN" priority="1" style="width:100px">
+				<h:outputText value="#{hi.ocupacionHis}" />
+			</p:column>
+			<p:column headerText="ANTECEDENTES ALIMENTICIOS" priority="1" style="width:150px">
+				<h:outputText value="#{hi.anteAlimenticios}" />
+			</p:column>
+			<p:column headerText="ANTECEDENTES FAMILIARES" priority="1" style="width:150px">
+				<h:outputText value="#{hi.anteFamiliares}" />
+			</p:column>
+			<p:column headerText="ANTECEDENTES HOSPITALIZACIONES" priority="1" style="width:150px">
+				<h:outputText value="#{hi.anteHospitalizaciones}" />
+			</p:column>
+			<p:column headerText="ANTECEDENTES PATOLÓGICOS" priority="1" style="width:150px">
+				<h:outputText value="#{hi.antePatologicos}" />
+			</p:column>
+			<p:column headerText="ANTECEDENTES QUIRURGICOS" priority="1" style="width:150px">
+				<h:outputText value="#{hi.anteQuirurgicos}" />
+			</p:column>
+			
+			
+			
+			<p:column headerText="OPCIONES" style="width:90px">
+				<p:commandButton update="@form"
+					actionListener="#{beanHistoria.actionListenerEliminarHistoria(hi)}"
+					title="Eliminar" icon="ui-icon-close">
+					<p:confirm header="Confirmación" message="Desea borrar?"
+						icon="ui-icon-close" />
+				</p:commandButton>
+				<p:commandButton
+					actionListener="#{beanHistoria.actionListenerSeleccionarHistoria(hi)}"
+					oncomplete="PF('dialogo1').show()" update=":form3" title="Editar"
+					icon="ui-icon-pencil">
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<p:dialog widgetVar="dialogo1" modal="true">
+		<h:form id="form3">
+				<p:panel header="HISTORIA CLÍNICA" collapsed="true" toggleable="true">
+			<p:panelGrid columns="2" layout="grid">
+			<h:outputlabel value="Código Historia:"/>
+			<p:inputText value="#{beanHistoria.historia.idHis}"
+					maxlength="50" required="true"
+					requiredMessage="Debe ingresar el código de la historia clínica"/>
+			<h:outputLabel value="Cédula:" />
+				<p:inputText value="#{beanEmpleado.empleado.cedEmple}"
+					maxlength="50" required="true"
+					requiredMessage="Debe ingresar el número de cédula"/>
+				<h:outputLabel value="Ocupación:" />
+				<p:inputText value="#{beanHistoria.historia.ocupacionHis}"
+					maxlength="50">
+					</p:inputText>
+					<h:outputLabel value="Anteceentes Alimenticios:" />
+				<p:inputText value="#{beanHistoria.historia.anteAlimenticios}"
+					maxlength="1000">
+					</p:inputText>
+				<h:outputLabel value="Antecedentes Familiares:" />
+				<p:inputText value="#{beanHistoria.historia.anteFamiliares}"
+					maxlength="1000">
+					</p:inputText>
+				<h:outputLabel value="Antecedentes Hospitalarios:" />
+				<p:inputText value="#{beanHistoria.historia.anteHospitalizaciones}"
+					maxlength="1000">
+					</p:inputText>
+				<h:outputLabel value="Antecedentes Patológicos:" />
+				<p:inputText value="#{beanHistoria.historia.antePatologicos}"
+					maxlength="1000">
+					</p:inputText>
+					<h:outputLabel value="Antecedentes Quirúrgicos:" />
+				<p:inputText value="#{beanHistoria.historia.anteQuirurgicos}"
+					maxlength="1000">
+					</p:inputText>
+					<p:commandButton oncomplete="PF('dialogo1').close()"
+						actionListener="#{beanHistoria.actionListenerActualizar()}"
+						value="Actualizar" icon="ui-icon-disk" update="@form,:form2" />
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+</body>
+</html>
